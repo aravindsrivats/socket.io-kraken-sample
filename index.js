@@ -7,7 +7,7 @@ var kraken = require('kraken-js');
 var options, app, io;
 
 options = {
-    onconfig: function (config, next) {
+    onconfig: function(config, next) {
         next(null, config);
     }
 };
@@ -15,11 +15,21 @@ options = {
 app = module.exports = express();
 app.use(kraken(options));
 
-app.on('start', function () {
+app.on('start', function() {
     app.listen(app.kraken.get('port')).on('listening', function() {
-		io = require('socket.io')(this);
+        debug('Lets start messaging.');
+        io = require('socket.io')(this);
         io.on('connection', function(client) {
-            debug('Client connected through websockets');
+            debug('There is someone joining us.');
+
+            client.on('send', function(data) {
+                debug('Yay! Application works!');
+                io.sockets.emit('message', data);
+            });
+
+            client.on('disconnect', function() {
+                console.log('Sad! Someone just left.');
+            });
         });
     });
 });
