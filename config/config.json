@@ -1,6 +1,6 @@
 {
     "port": 8080,
-    
+
     "specialization": {},
 
     "middleware": {
@@ -15,6 +15,14 @@
                 "arguments": [{
                     "directory": "path:./controllers"
                 }]
+            }
+        },
+
+        "expressView": {
+            "priority": 100,
+            "enabled": true,
+            "module": {
+                "name": "engine-munger/lib/expressView"
             }
         }
     }
