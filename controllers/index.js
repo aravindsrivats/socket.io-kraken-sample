@@ -1,16 +1,9 @@
 'use strict';
 
-var IndexModel = require('../models/index');
-
-
-module.exports = function (router) {
-
-    var model = new IndexModel();
-
-    router.get('/', function (req, res) {
-        
-        res.send('<code><pre>' + JSON.stringify(model, null, 2) + '</pre></code>');
-        
+module.exports = function(router) {
+    router.get('/', function(req, res) {
+        res.render('index', {
+            appname: 'Sample Websocket App with Kraken.js and Socket.io'
+        });
     });
-
 };
